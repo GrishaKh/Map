@@ -15,7 +15,11 @@ int main(int argc, char const *argv[])
 
     Map<int> map2(map);
 
+    map.add(26);
+
     map2.print();
+    std::cout << std::endl << "Map1" << std::endl;
+    map.print();
 
     return 0;
 }

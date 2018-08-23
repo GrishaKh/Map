@@ -15,7 +15,7 @@ class Map {
 
     void add(T data, Node* node);
     void print(Node* node);
-    void copy(Node node1, Node node2);
+    void copy(Node *& node1, Node* node2);
 
 public:
     Map() : top(nullptr) {}
@@ -33,13 +33,21 @@ Map<T>::Map(const Map& map) {
     if (map.top) {
         copy(top, map.top);
     }
+    else {
+        top = nullptr;
+    }
 }
 
 template <class T>
-void Map<T>::copy(Node node1, Node node2) {
-    if (node2->lvalue) {
-        copy(map1, map2);
-        node2->data = map1.top->data;
+void Map<T>::copy(Node *& node1, Node* node2) {
+    if (node2) {
+        node1 = new Node;
+        node1->data = node2->data;
+        copy(node1->lvalue, node2->lvalue);
+        copy(node1->rvalue, node2->rvalue);
+    }
+    else {
+        node1 = nullptr;
     }
 }
 
