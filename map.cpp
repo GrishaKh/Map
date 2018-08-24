@@ -21,5 +21,8 @@ int main(int argc, char const *argv[])
     std::cout << std::endl << "Map1" << std::endl;
     map.print();
 
+    map2.~Map();
+    map2.print();
+
     return 0;
 }

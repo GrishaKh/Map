@@ -15,12 +15,13 @@ class Map {
 
     void add(T data, Node* node);
     void print(Node* node);
-    void copy(Node *& node1, Node* node2);
+    void copyHelper(Node *& node1, Node* node2);
+    void deleteHelper(Node *& node);
 
 public:
     Map() : top(nullptr) {}
     Map(const Map& map);
-    //~Map();
+    ~Map();
 
     void add(T data);
     void print();
@@ -31,7 +32,7 @@ public:
 template <class T>
 Map<T>::Map(const Map& map) {
     if (map.top) {
-        copy(top, map.top);
+        copyHelper(top, map.top);
     }
     else {
         top = nullptr;
@@ -39,12 +40,29 @@ Map<T>::Map(const Map& map) {
 }
 
 template <class T>
-void Map<T>::copy(Node *& node1, Node* node2) {
+Map<T>::~Map() {
+    if (top) {
+        deleteHelper(top);
+    }
+}
+
+template <class T>
+void Map<T>::deleteHelper(Node*& node) {
+    if (node) {
+        deleteHelper(node->lvalue);
+        deleteHelper(node->lvalue);
+        delete node;
+        node = nullptr;
+    }
+}
+
+template <class T>
+void Map<T>::copyHelper(Node *& node1, Node* node2) {
     if (node2) {
         node1 = new Node;
         node1->data = node2->data;
-        copy(node1->lvalue, node2->lvalue);
-        copy(node1->rvalue, node2->rvalue);
+        copyHelper(node1->lvalue, node2->lvalue);
+        copyHelper(node1->rvalue, node2->rvalue);
     }
     else {
         node1 = nullptr;
