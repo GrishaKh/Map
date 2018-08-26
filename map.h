@@ -26,11 +26,11 @@ public:
     void add(T data);
     void print();
 
-    //Map operator=(const Map& map);
+    Map &operator=(const Map& map);
 };
 
 template <class T>
-Map<T>::Map(const Map& map) {
+Map<T>::Map(const Map<T>& map) {
     if (map.top) {
         copyHelper(top, map.top);
     }
@@ -67,6 +67,14 @@ void Map<T>::copyHelper(Node *& node1, Node* node2) {
     else {
         node1 = nullptr;
     }
+}
+
+template <class T>
+Map<T>& Map<T>::operator=(const Map<T>& map) {
+    deleteHelper(top);
+    copyHelper(top, map.top);
+
+    return *this;
 }
 
 template <class T>

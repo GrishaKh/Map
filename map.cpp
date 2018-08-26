@@ -24,5 +24,14 @@ int main(int argc, char const *argv[])
     map2.~Map();
     map2.print();
 
+    Map<int> map3;
+    map3.add(8);
+    map3.add(2);
+
+    map2 = map3;
+
+    std::cout << std::endl << "New Map2" << std::endl;
+    map2.print();
+
     return 0;
 }
